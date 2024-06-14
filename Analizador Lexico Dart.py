@@ -64,15 +64,31 @@ tokens = (
 )+tuple(reserved.values())'''
 
 # Regular expression rules for simple tokens
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_TIMES   = r'\*'
-t_DIVIDE  = r'/'
+
+#Richard Perez
+t_LCURLYBRACE = r'\{'
+t_RCURLYBRACE = r'\}'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
-t_MOD = r'%'
-t_COMA = r','
-t_TWOPOINTS = r':'
+t_SEMICOLON = r';'
+t_ARROWFUNCTION = r'=>'
+t_DOT = r'\.'
+t_COMMA = r','
+t_COLON = r':'
+
+
+'''
+    'VARIABLE',
+    'COMMENT',
+    'STRINGTEXT',
+    'NEWDATATYPE'
+    'INTERNDATATYPE',
+    'NUMBER',
+    'BOOLTEXT',
+    'ATTRIBUTE',
+    'ADDEDSTRING',
+    'FUNCTION'''
+
 
 
 def t_VARIABLE(t):
