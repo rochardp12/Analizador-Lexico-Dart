@@ -40,28 +40,11 @@ tokens = (
     'COMMA',
     'NUMBER',
     'BOOLTEXT',
-    'ATTRIBUTE',
+    'DATAATTRIBUTE',
     'COLON',
     'ADDEDSTRING',
-    'FUNCTION'
+    'DATAFUNCTION'
     )+tuple(reserved.values())
-
-
-
-'''
-   'INT',
-   'PLUS',
-   'MINUS',
-   'TIMES',
-   'DIVIDE',
-   'LPAREN',
-   'RPAREN',
-    'MOD',
-    'VARIABLE',
-    'COMA',
-    'TWOPOINTS',
-    'FLOAT'
-)+tuple(reserved.values())'''
 
 # Regular expression rules for simple tokens
 
@@ -76,35 +59,59 @@ t_DOT = r'\.'
 t_COMMA = r','
 t_COLON = r':'
 
-
-'''
-    'VARIABLE',
-    'COMMENT',
-    'STRINGTEXT',
-    'NEWDATATYPE'
-    'INTERNDATATYPE',
-    'NUMBER',
-    'BOOLTEXT',
-    'ATTRIBUTE',
-    'ADDEDSTRING',
-    'FUNCTION'''
-
-
+#Richard Perez
+def t_NEWDATATYPE(t):
+  r'[A-Z][_a-zA-Z0-9]*'
+  t.type = reserved.get(t.value, 'NEWDATATYPE')
+  return t
 
 def t_VARIABLE(t):
     r'[_a-zA-Z]\w*'
     t.type = reserved.get(t.value, 'VARIABLE')
     return t
 
+def t_COMMENT(t):
+    r'//.*'
+    t.type = reserved.get(t.value, 'COMMENT')
+    return t
+
+def t_ADDEDSTRING(t):
+    r'${\w+}'
+    t.type = reserved.get(t.value, 'ADDEDSTRING')
+    return t
+
+def t_STRINGTEXT(t):
+    r'"[^"]*"'
+    t.type = reserved.get(t.value, 'STRINGTEXT')
+    return t
+
+def t_INTERNDATATYPE(t):
+    r'<[A-Z][_a-zA-Z0-9]*>'
+    t.type = reserved.get(t.value, 'INTERNDATATYPE')
+    return t
+
+def t_DATAATTRIBUTE(t):
+    r'\.[a-z0-9]+'
+    t.type = reserved.get(t.value, 'DATAATTRIBUTE')
+    return t
+
+def t_DATAFUNCTION(t):
+    r'\.[a-z0-9]+(\w*)'
+    t.type = reserved.get(t.value, 'DATAFUNCTION')
+    return t
+
 # A regular expression rule with some action code
-def t_INT(t):
+def t_NUMBER(t):
     r'\d+'
     t.value = int(t.value)    
     return t
 
-def t_FLOAT(t):
-    r'((-)?(\d)+\.(\d)*|\.(\d)*)'
-    t.value = float(t.value)    
+def t_BOOLTEXT(t):
+    r'true|false'
+    if t.value == 'true':
+        t.value = True
+    else:
+        t.value = False    
     return t
 
 # Define a rule so we can track line numbers
