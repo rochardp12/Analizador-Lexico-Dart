@@ -3,9 +3,52 @@
 import ply.lex as lex
 
 # List of token names.   This is always required
-reserved = {"def":"DEF","return":"RETURN","print":"PRINT"}
+reserved = {
+    #Richard Perez
+    "class": "CLASS",
+    "String": "STRING",
+    "bool": "BOOL",
+    "int": "INT",
+    "this": "THIS",
+    "public": "PUBLIC",
+    "print": "PRINT",
+    "void": "VOID",
+    "main": "MAIN",
+    "Set": "SET",
+    "for": "FOR",
+    "in": "IN",
+    "switch": "SWITCH",
+    "case": "CASE",
+    "break": "BREAK",
+    "default": "DEFAULT"
+    }
 
 tokens = (
+    #Richard Perez
+    'VARIABLE',
+    'LCURLYBRACE',
+    'RCURLYBRACE',
+    'LPAREN',
+    'RPAREN',
+    'SEMICOLON',
+    'ARROWFUNCTION',
+    'DOT',
+    'COMMENT',
+    'STRINGTEXT',
+    'NEWDATATYPE'
+    'INTERNDATATYPE',
+    'COMMA',
+    'NUMBER',
+    'BOOLTEXT',
+    'ATTRIBUTE',
+    'COLON',
+    'ADDEDSTRING',
+    'FUNCTION'
+    )+tuple(reserved.values())
+
+
+
+'''
    'INT',
    'PLUS',
    'MINUS',
@@ -18,7 +61,7 @@ tokens = (
     'COMA',
     'TWOPOINTS',
     'FLOAT'
-)+tuple(reserved.values())
+)+tuple(reserved.values())'''
 
 # Regular expression rules for simple tokens
 t_PLUS    = r'\+'
