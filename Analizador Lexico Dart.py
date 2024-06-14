@@ -72,6 +72,36 @@ print(a)
 PRINT(B)
 return b"""
 
+#Katherine 
+algoritmoKatherine = '''
+enum DiaSemana{
+    Lunes,
+    Martes,
+    Miercoles,
+    Jueves,
+    Viernes,
+    Sabado,
+    Domingo
+}
+
+void main(){
+    
+    List<DiaSemana> diaSemana = [
+        DiaSemana.Lunes, DiaSemana.Martes, DiaSemana.Miercoles, DiaSemana.Jueves, 
+        DiaSemana.Viernes, DiaSemana.Sabado, DiaSemana.Domingo
+    ];
+    
+    for ( var dia in diaSemana){
+        print(dia);
+        if (dia == DiaSemana.Sabado){
+            break;
+        }
+        
+    }
+} 
+
+'''
+
 lexer.input(data)
 
 # Tokenize
