@@ -1,9 +1,24 @@
 #Grupo 7 - Analizador Léxico Dart
 
 import ply.lex as lex
+import os
+from datetime import datetime
 
 # List of token names.   This is always required
-reserved = {"def":"DEF","return":"RETURN","print":"PRINT"}
+reserved = {
+    "def":"DEF",
+    "return":"RETURN",
+    "print": "PRINT",
+    #Katherine Tumbaco
+    "enum": "ENUM",
+    "void": "VOID",
+    "main": "MAIN",
+    "for": "FOR",
+    "var": "VAR",
+    "in": "IN",
+    "break": "BREAK",
+    "List": "LIST",
+    }
 
 tokens = (
    'INT',
@@ -17,7 +32,17 @@ tokens = (
     'VARIABLE',
     'COMA',
     'TWOPOINTS',
-    'FLOAT'
+    'FLOAT',
+    #Katherine Tumbaco
+   'LLlave',
+   'RLlave',
+   'LCORC',
+   'RCORC',
+   'SEMICOLON',
+   'EQUALS',
+   'POINT',
+   'Lmenor',
+   'Rmayor'
 )+tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -30,6 +55,16 @@ t_RPAREN  = r'\)'
 t_MOD = r'%'
 t_COMA = r','
 t_TWOPOINTS = r':'
+#Katherine Tumbaco
+t_LLlave  = r'\{'
+t_RLlave  = r'\}'
+t_Lmenor   = r'\<'
+t_Rmayor   = r'\>'
+t_LCORC = r'\['
+t_RCORC = r'\]'
+t_SEMICOLON = r';'
+t_EQUALS   = r'='
+t_POINT      = r'\.'
 
 
 def t_VARIABLE(t):
@@ -44,7 +79,7 @@ def t_INT(t):
     return t
 
 def t_FLOAT(t):
-    r'((-)?(\d)+\.(\d)*|\.(\d)*)'
+    r'(\d+\.\d+|\.\d+)'
     t.value = float(t.value)    
     return t
 
@@ -63,6 +98,16 @@ def t_error(t):
 
 # Build the lexer
 lexer = lex.lex()
+
+#Generate logs
+log_dir = "logs"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
+
+usuarioGit = "katumbac"
+current_time = datetime.now().strftime("%d%m%Y-%Hh%M")
+log_filename = f"lexico-{usuarioGit}-{current_time}.txt"
+log_filepath = os.path.join(log_dir, log_filename)
 
 data = """def function(a, b):
 4*5=4+t
@@ -102,11 +147,13 @@ void main(){
 
 '''
 
-lexer.input(data)
+lexer.input(algoritmoKatherine)
 
 # Tokenize
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break      # No more input
-    print(tok)
+with open(log_filepath, 'w') as log_file:
+    while True:
+        tok = lexer.token()
+        if not tok: 
+            break      # No more input
+        log_file.write(f"{tok}\n")
+        print(tok)
