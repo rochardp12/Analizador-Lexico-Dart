@@ -68,7 +68,6 @@ tokens = (
     'MOD',
     'INTEGERDIVISION',
     'VARIABLE',
-    'CLASS',
     'COMMA',
     'EQUALS',
     'NEQ',
@@ -159,7 +158,41 @@ data = """void main() {
   var x = 10;
   var y = 'Hola, mundo!';
   print(x + y);
-  /* comentario */
+  /* Ahora 
+  valido
+    condicionales */
+  if(x >= 0 || x < 10 && x != 5){
+    print('x es un número válido');
+  }
+  else{
+    print('x no es un número válido');
+  }
+  //whiles
+    while(x < 10){
+        print('x es menor a 10');
+        x++;
+    }
+   //switches
+    switch(x){
+      case 1:
+        print('x es 1');
+        break;
+      case 2:
+        print('x es 2');
+        break;
+      default:
+        print('x no es ni 1 ni 2');
+    }
+    //try catch
+    try{
+      print('Intentando algo');
+    }
+    catch(e){
+      print('Error: $e');
+    }
+    finally{
+      print('Finalmente');
+    } 
 }
 """
 
