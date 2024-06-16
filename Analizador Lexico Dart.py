@@ -1,5 +1,7 @@
 #Nombre: Roberto Encalada
 #Matricula: 202101507
+from datetime import datetime
+import os
 import ply.lex as lex
 
 # List of token names.   This is always required
@@ -71,10 +73,12 @@ tokens = (
     'COMMA',
     'EQUALS',
     'NEQ',
+    'DOT',
     'TWODOTS',
     'DOTCOMMA',
     'APHOSTROPHE',
     'DOUBLEAPHOSTROPHE',
+    'CHAINCHARACTER',
     'ADMIRATION',
     'DOLLAR',
     'OR',
@@ -97,6 +101,7 @@ t_INTEGERDIVISION = r'~/'
 t_COMMA   = r','
 t_EQUALS  = r'='
 t_NEQ = r'!='
+t_DOT = r'\.'
 t_TWODOTS = r':'
 t_LBRACE  = r'\{'
 t_RBRACE  = r'\}'
@@ -121,7 +126,7 @@ def t_VARIABLE(t):
 # A regular expression rule with some action code
 
 def t_FLOAT(t):
-    r'\d*\.{1}\d*'
+    r'\d+\.\d+'
     t.value = float(t.value)
     return t
     
@@ -146,61 +151,117 @@ def t_error(t):
 # Build the lexer
 lexer = lex.lex()
 
-data = """void main() {
-  // Error léxico: variable con nombre inválido
-  var 123variable = 10;
+#Generate logs
+log_dir = "logs"
+if not os.path.exists(log_dir):
+    os.makedirs(log_dir)
 
-  // Error sintáctico: falta de cierre de paréntesis
-  for (var i = 0; i < 10; i++) {
-    print('Número: $i');
-  
-  // Error semántico: operación inválida entre un entero y una cadena
-  var x = 10;
-  var y = 'Hola, mundo!';
-  print(x + y);
-  /* Ahora 
-  valido
-    condicionales */
-  if(x >= 0 || x < 10 && x != 5){
-    print('x es un número válido');
-  }
-  else{
-    print('x no es un número válido');
-  }
-  //whiles
-    while(x < 10){
-        print('x es menor a 10');
-        x++;
+usuarioGit = "rocaenca"
+current_time = datetime.now().strftime("%d%m%Y-%Hh%M")
+log_filename = f"lexico-{usuarioGit}-{current_time}.txt"
+log_filepath = os.path.join(log_dir, log_filename)
+
+
+AlgoritmoRoberto = """
+/* Block comment example
+This is a test for the block comment token.
+*/
+
+// Line comment example
+public class TestClass {
+    private int number = 42;
+    public double decimalNumber = 3.14;
+    protected boolean isValid = true;
+    static final String CONSTANT_STRING = "Hello";
+    private List<Integer> myList = new ArrayList<>();
+    private Map<String, Integer> myMap = new HashMap<>();
+
+    public static void main(String[] args) {
+        TestClass instance = new TestClass();
+        instance.testMethod();
     }
-   //switches
-    switch(x){
-      case 1:
-        print('x es 1');
-        break;
-      case 2:
-        print('x es 2');
-        break;
-      default:
-        print('x no es ni 1 ni 2');
+
+    public void testMethod() {
+        int localVar = 10;
+        double pi = 3.14;
+        boolean flag = false;
+        String greeting = "Hello, World!";
+        char initial = 'A';
+        
+        if (localVar > 5 && flag == false) {
+            print("localVar is greater than 5");
+        } else {
+            print("localVar is less than or equal to 5");
+        }
+
+        for (int i = 0; i < 10; i++) {
+            myList.add(i);
+        }
+
+        while (localVar > 0) {
+            localVar--;
+        }
+
+        switch (localVar) {
+            case 0:
+                print("localVar is zero");
+                break;
+            default:
+                print("localVar is not zero");
+                break;
+        }
+
+        try {
+            int result = localVar / 0;
+        } catch (ArithmeticException e) {
+            print("Division by zero!");
+        } finally {
+            print("End of try-catch block");
+        }
+
+        number = (int) pi; // Casting
+        myMap.put("Key", 123);
+
+        // Check reserved words
+        nullCheck(null);
+        thisCheck(this);
+        superCheck(super.toString());
+
+        print(greeting + " " + initial + '!');
     }
-    //try catch
-    try{
-      print('Intentando algo');
+
+    private void nullCheck(Object obj) {
+        if (obj == null) {
+            print("Object is null");
+        }
     }
-    catch(e){
-      print('Error: $e');
+
+    private void thisCheck(TestClass obj) {
+        if (obj == this) {
+            print("This object");
+        }
     }
-    finally{
-      print('Finalmente');
-    } 
+
+    private void superCheck(String str) {
+        if (str != null) {
+            print("Super check passed");
+        }
+    }
+
+    private void print(String message) {
+        System.out.println(message);
+    }
 }
+
 """
 
-lexer.input(data)
+lexer.input(AlgoritmoRoberto)
 
 # Tokenize
-while True:
-    tok = lexer.token()
-    if not tok: 
-        break      # No more input
-    print(tok)
+with open(log_filepath, 'w') as log_file:
+  while True:
+      tok = lexer.token()
+      if not tok: 
+          break      # No more input
+      print(tok)
+      log_file.write(f"{tok}\n")
