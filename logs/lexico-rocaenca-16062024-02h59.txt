@@ -1,0 +1,93 @@
+Primer Test
+LexToken(VOID,'void',1,0)
+LexToken(VARIABLE,'main',1,5)
+LexToken(LPAREN,'(',1,9)
+LexToken(RPAREN,')',1,10)
+Illegal character '{'
+LexToken(DIVIDE,'/',2,16)
+LexToken(DIVIDE,'/',2,17)
+LexToken(VARIABLE,'Error',2,19)
+LexToken(VARIABLE,'léxico',2,25)
+LexToken(TWODOTS,':',2,31)
+LexToken(VARIABLE,'variable',2,33)
+LexToken(VARIABLE,'con',2,42)
+LexToken(VARIABLE,'nombre',2,46)
+LexToken(VARIABLE,'inválido',2,53)
+LexToken(VARIABLE,'var',3,64)
+LexToken(NUMBER,123,3,68)
+LexToken(VARIABLE,'variable',3,71)
+LexToken(EQUALS,'=',3,80)
+LexToken(NUMBER,10,3,82)
+Illegal character ';'
+LexToken(DIVIDE,'/',5,89)
+LexToken(DIVIDE,'/',5,90)
+LexToken(VARIABLE,'Error',5,92)
+LexToken(VARIABLE,'sintáctico',5,98)
+LexToken(TWODOTS,':',5,108)
+LexToken(VARIABLE,'falta',5,110)
+LexToken(VARIABLE,'de',5,116)
+LexToken(VARIABLE,'cierre',5,119)
+LexToken(VARIABLE,'de',5,126)
+LexToken(VARIABLE,'paréntesis',5,129)
+LexToken(VARIABLE,'for',6,142)
+LexToken(LPAREN,'(',6,146)
+LexToken(VARIABLE,'var',6,147)
+LexToken(VARIABLE,'i',6,151)
+LexToken(EQUALS,'=',6,153)
+LexToken(NUMBER,0,6,155)
+Illegal character ';'
+LexToken(VARIABLE,'i',6,158)
+Illegal character '<'
+LexToken(NUMBER,10,6,162)
+Illegal character ';'
+LexToken(VARIABLE,'i',6,166)
+LexToken(PLUS,'+',6,167)
+LexToken(PLUS,'+',6,168)
+LexToken(RPAREN,')',6,169)
+Illegal character '{'
+LexToken(VARIABLE,'print',7,177)
+LexToken(LPAREN,'(',7,182)
+Illegal character '''
+LexToken(VARIABLE,'Número',7,184)
+LexToken(TWODOTS,':',7,190)
+Illegal character '$'
+LexToken(VARIABLE,'i',7,193)
+Illegal character '''
+LexToken(RPAREN,')',7,195)
+Illegal character ';'
+LexToken(DIVIDE,'/',9,203)
+LexToken(DIVIDE,'/',9,204)
+LexToken(VARIABLE,'Error',9,206)
+LexToken(VARIABLE,'semántico',9,212)
+LexToken(TWODOTS,':',9,221)
+LexToken(VARIABLE,'operación',9,223)
+LexToken(VARIABLE,'inválida',9,233)
+LexToken(VARIABLE,'entre',9,242)
+LexToken(VARIABLE,'un',9,248)
+LexToken(VARIABLE,'entero',9,251)
+LexToken(VARIABLE,'y',9,258)
+LexToken(VARIABLE,'una',9,260)
+LexToken(VARIABLE,'cadena',9,264)
+LexToken(VARIABLE,'var',10,273)
+LexToken(VARIABLE,'x',10,277)
+LexToken(EQUALS,'=',10,279)
+LexToken(NUMBER,10,10,281)
+Illegal character ';'
+LexToken(VARIABLE,'var',11,287)
+LexToken(VARIABLE,'y',11,291)
+LexToken(EQUALS,'=',11,293)
+Illegal character '''
+LexToken(VARIABLE,'Hola',11,296)
+LexToken(COMMA,',',11,300)
+LexToken(VARIABLE,'mundo',11,302)
+Illegal character '!'
+Illegal character '''
+Illegal character ';'
+LexToken(VARIABLE,'print',12,313)
+LexToken(LPAREN,'(',12,318)
+LexToken(VARIABLE,'x',12,319)
+LexToken(PLUS,'+',12,321)
+LexToken(VARIABLE,'y',12,323)
+LexToken(RPAREN,')',12,324)
+Illegal character ';'
+Illegal character '}'
