@@ -117,7 +117,7 @@ print(a)
 PRINT(B)
 return b"""
 
-#Katherine 
+#Katherine Tumbaco
 algoritmoKatherine = '''
 enum DiaSemana{
     Lunes,
