@@ -38,6 +38,7 @@ reserved = {
     'while':'WHILE',
     'if':'IF',
     'else':'ELSE',
+    'elif':'ELIF',
     'return':'RETURN',
     'break':'BREAK',
     'switch':'SWITCH',
@@ -76,15 +77,13 @@ tokens = (
     'DOT',
     'TWODOTS',
     'DOTCOMMA',
-    'APHOSTROPHE',
-    'DOUBLEAPHOSTROPHE',
-    'CHAINCHARACTER',
     'ADMIRATION',
     'DOLLAR',
     'OR',
     'AND',
     'commentLine',
     'commentBlock',
+    'CHAINCHAR',
 
 
 ) + tuple(reserved.values())
@@ -110,14 +109,13 @@ t_RBRACKET = r'\]'
 t_DOTCOMMA = r';'
 t_LANGLE = r'<'
 t_RANGLE = r'>'
-t_APHOSTROPHE = r'\''
-t_DOUBLEAPHOSTROPHE = r'\"'
 t_ADMIRATION = r'!'
 t_DOLLAR = r'\$'
 t_OR = r'\|\|'
 t_AND = r'&&'
 t_commentLine = r'//.*'
 t_commentBlock = r'/\*(.|\n)*?\*/'
+t_CHAINCHAR = r'(\'[^\']*\'|\"[^\"]*\")'
 
 def t_VARIABLE(t):
     r'[a-zA-Z_]\w*'
