@@ -52,6 +52,23 @@ reserved = {
     'is':'IS',
     'enum':'ENUM',
     'super':'SUPER',
+       #Richard Perez
+    "class": "CLASS",
+    "String": "STRING",
+    "bool": "BOOL",
+    "int": "INT",
+    "this": "THIS",
+    "public": "PUBLIC",
+    "print": "PRINT",
+    "void": "VOID",
+    "main": "MAIN",
+    "Set": "SET",
+    "for": "FOR",
+    "in": "IN",
+    "switch": "SWITCH",
+    "case": "CASE",
+    "break": "BREAK",
+    "default": "DEFAULT"
     }
 tokens = (
     'NUMBER',
@@ -84,17 +101,31 @@ tokens = (
     'commentLine',
     'commentBlock',
     'CHAINCHAR',
-
+  #Richard Perez
+    'VARIABLE',
+    'LCURLYBRACE',
+    'RCURLYBRACE',
+    'LPAREN',
+    'RPAREN',
+    'SEMICOLON',
+    'ARROWFUNCTION',
+    'DOT',
+    'COMMENT',
+    'STRINGTEXT',
+    'NEWDATATYPE',
+    'INTERNDATATYPE',
+    'COMMA',
+    'NUMBERINT',
+    'BOOLTEXT',
+    'DATAATTRIBUTE',
+    'COLON',
+    'DATAFUNCTION',
+    'ASSIGN',
+    'FUNCTION'
 
 ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
-t_PLUS    = r'\+'
-t_MINUS   = r'-'
-t_TIMES   = r'\*'
-t_DIVIDE  = r'/'
-t_LPAREN  = r'\('
-t_RPAREN  = r'\)'
 t_MOD     = r'%'
 t_INTEGERDIVISION = r'~/'
 t_COMMA   = r','
@@ -116,11 +147,75 @@ t_AND = r'&&'
 t_commentLine = r'//.*'
 t_commentBlock = r'/\*(.|\n)*?\*/'
 t_CHAINCHAR = r'(\'[^\']*\'|\"[^\"]*\")'
+#Richard Perez
+t_LCURLYBRACE = r'\{'
+t_RCURLYBRACE = r'\}'
+t_LPAREN  = r'\('
+t_RPAREN  = r'\)'
+t_SEMICOLON = r';'
+t_ARROWFUNCTION = r'=>'
+t_DOT = r'\.'
+t_COMMA = r','
+t_COLON = r':'
+t_ASSIGN = r'='
 
 def t_VARIABLE(t):
     r'[a-zA-Z_]\w*'
     t.type = reserved.get(t.value,'VARIABLE')    # Check for reserved words
     return t
+ #Richard Perez
+
+def t_NEWDATATYPE(t):
+    r'[A-Z][_a-zA-Z0-9]*'
+    t.type = reserved.get(t.value, 'NEWDATATYPE')
+    return t
+
+def t_FUNCTION(t):
+    r'[a-zA-Z]+\w*\(\w*\)'
+    t.type = reserved.get(t.value, 'FUNCTION')
+    return t
+
+def t_DATAFUNCTION(t):
+    r'\.[a-zA-Z]+\w*\(\w*\)'
+    t.type = reserved.get(t.value, 'DATAFUNCTION')
+    return t
+
+def t_BOOLTEXT(t):
+    r'true|false'
+    if t.value == 'true':
+        t.value = True
+    else:
+        t.value = False    
+    return t 
+
+
+def t_COMMENT(t):
+    r'//.*'
+    t.type = reserved.get(t.value, 'COMMENT')
+    return t
+
+def t_STRINGTEXT(t):
+    r'"[^"]*"'
+    t.type = reserved.get(t.value, 'STRINGTEXT')
+    return t
+
+def t_INTERNDATATYPE(t):
+    r'\<[A-Z][_a-zA-Z0-9]*\>'
+    t.type = reserved.get(t.value, 'INTERNDATATYPE')
+    return t
+
+def t_DATAATTRIBUTE(t):
+    r'\.[a-zA-Z_]+\w*'
+    t.type = reserved.get(t.value, 'DATAATTRIBUTE')
+    return t
+
+
+# A regular expression rule with some action code
+def t_NUMBERINT(t):
+    r'\d+'
+    t.value = int(t.value)    
+    return t
+
 # A regular expression rule with some action code
 
 def t_FLOAT(t):
@@ -154,12 +249,49 @@ log_dir = "logs"
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
-usuarioGit = "rocaenca"
+usuarioGitRoberto = "rocaenca"
+usuarioGitRichard = "rochardp12"
 current_time = datetime.now().strftime("%d%m%Y-%Hh%M")
 log_filename = f"lexico-{usuarioGit}-{current_time}.txt"
 log_filepath = os.path.join(log_dir, log_filename)
 
+algoritmoRichard = """
+        class Pais {
+        String nombre;
+        bool ganoMundial;
+        int cantidad;
 
+        Pais(this.nombre, this.ganoMundial, this.cantidad);
+
+        public String cantidadMundiales() => print(this.cantidad)
+        }
+
+        void main() {
+        // Crear un conjunto de países
+        Set<Pais> paises = {
+            Pais("Brasil", true, 5),
+            Pais("Argentina", true, 3),
+            Pais("España", true, 1),
+            Pais("Italia", true, 4),
+            Pais("México", false, 0),
+            Pais("Japón", false, 0),
+        };
+        // Recorrer el conjunto de países y aplicar el switch en ganoMundial
+        for (Pais pais in paises) {
+            switch (pais.ganoMundial) {
+            case true:
+                print("GANÓ:  ${pais.nombre}");
+                pais.cantidadMundiales();
+                break;
+            case false:
+                print("NO GANÓ:  ${pais.nombre}");
+                break;
+            case default:
+                print("Sin Informacion");
+            }
+        }
+        }
+        """
 AlgoritmoRoberto = """
 /* Block comment example
 This is a test for the block comment token.
