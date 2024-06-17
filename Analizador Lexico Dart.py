@@ -1,8 +1,6 @@
-#Nombre: Roberto Encalada
-#Matricula: 202101507
-from datetime import datetime
-import os
 import ply.lex as lex
+import os
+from datetime import datetime
 
 # List of token names.   This is always required
 reserved = {
@@ -69,6 +67,16 @@ reserved = {
     "case": "CASE",
     "break": "BREAK",
     "default": "DEFAULT"
+    #Katherine Tumbaco
+    "enum": "ENUM",
+    "void": "VOID",
+    "main": "MAIN",
+    "for": "FOR",
+    "var": "VAR",
+    "in": "IN",
+    "break": "BREAK",
+    "List": "LIST",
+      
     }
 tokens = (
     'NUMBER',
@@ -103,6 +111,19 @@ tokens = (
     'CHAINCHAR',
   #Richard Perez
     'VARIABLE',
+    'COMA',
+    'TWOPOINTS',
+    'FLOAT',
+    #Katherine Tumbaco
+   'LLlave',
+   'RLlave',
+   'LCORC',
+   'RCORC',
+   'SEMICOLON',
+   'EQUALS',
+   'POINT',
+   'Lmenor',
+   'Rmayor'
     'LCURLYBRACE',
     'RCURLYBRACE',
     'LPAREN',
@@ -122,7 +143,6 @@ tokens = (
     'DATAFUNCTION',
     'ASSIGN',
     'FUNCTION'
-
 ) + tuple(reserved.values())
 
 # Regular expression rules for simple tokens
@@ -152,6 +172,19 @@ t_LCURLYBRACE = r'\{'
 t_RCURLYBRACE = r'\}'
 t_LPAREN  = r'\('
 t_RPAREN  = r'\)'
+t_MOD = r'%'
+t_COMA = r','
+t_TWOPOINTS = r':'
+#Katherine Tumbaco
+t_LLlave  = r'\{'
+t_RLlave  = r'\}'
+t_Lmenor   = r'\<'
+t_Rmayor   = r'\>'
+t_LCORC = r'\['
+t_RCORC = r'\]'
+t_SEMICOLON = r';'
+t_EQUALS   = r'='
+t_POINT      = r'\.'
 t_SEMICOLON = r';'
 t_ARROWFUNCTION = r'=>'
 t_DOT = r'\.'
@@ -249,12 +282,52 @@ log_dir = "logs"
 if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
+usuarioGitKatherine = "katumbac"
 usuarioGitRoberto = "rocaenca"
 usuarioGitRichard = "rochardp12"
 current_time = datetime.now().strftime("%d%m%Y-%Hh%M")
 log_filename = f"lexico-{usuarioGit}-{current_time}.txt"
 log_filepath = os.path.join(log_dir, log_filename)
 
+
+#Katherine Tumbaco
+algoritmoKatherine = '''
+enum DiaSemana{
+    Lunes,
+    Martes,
+    Miercoles,
+    Jueves,
+    Viernes,
+    Sabado,
+    Domingo
+}
+
+void main(){
+    
+    List<DiaSemana> diaSemana = [
+        DiaSemana.Lunes, DiaSemana.Martes, DiaSemana.Miercoles, DiaSemana.Jueves, 
+        DiaSemana.Viernes, DiaSemana.Sabado, DiaSemana.Domingo
+    ];
+    
+    for ( var dia in diaSemana){
+        print(dia);
+        if (dia == DiaSemana.Sabado){
+            break;
+        }
+        
+    }
+} 
+
+'''
+
+# Tokenize
+with open(log_filepath, 'w') as log_file:
+    while True:
+        tok = lexer.token()
+        if not tok: 
+            break      # No more input
+        log_file.write(f"{tok}\n")
+        print(tok)
 algoritmoRichard = """
         class Pais {
         String nombre;
@@ -384,7 +457,7 @@ public class TestClass {
 }
 
 """
-
+lexer.input(algoritmoKatherine)
 lexer.input(AlgoritmoRoberto)
 
 # Tokenize
